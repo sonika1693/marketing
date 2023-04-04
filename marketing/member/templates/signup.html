@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/basic/css/bootstrap.min.css">
+    <script src="/static/basic/js/jquery.min.js"></script>
+    <script src="/static/basic/js/bootstrap.min.js"></script>
+    <script src="/static/basic/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            /* background-color: rgb(215, 182, 247); */
+            /* background-color: #FFA500; */
+            height: 100vh;
+            background-image: url("/static/images/banner1.jpg");
+        }
+        h3 {
+            text-shadow: 2px 2px 2px rgb(175, 250, 239);
+        }
+        .col-md-6{
+            border: 2px solid #000; 
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #ffffff;
+        }
+        /* .header{
+            background-image: url("/static/images/banner1.jpg");
+            height:150px;
+        } */
+    </style>
+</head>
+{% if messages %}
+{% for message in messages %}
+{% if message.tags == 'success' %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+<strong>{{ message.tags }}!</strong> {{ message }}.
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% else %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+<strong>{{ message.tags }}!</strong> {{ message }}.
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+<body>
+    <div id="login">
+        <div class="container-fluid header">
+            <h3 class="text-center text-black pt-5">BODHI AI MARKETING</h3>
+        </div>
+        
+        <div class="container" style="margin-top:40px;">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <p>If you are already registered then go to <a href="/" class="btn btn-dark">Login</a></p>
+                        <form method="post">
+                            {% csrf_token %}
+                            {% for field in form %}
+                            <p>
+                                {{ field.label_tag }}<br>
+                                {{ field }}
+                                {% if field.help_text %}
+                                <small style="color: grey; display: block;">{{ field.help_text }}</small>
+                                {% endif %}
+                                {% for error in field.errors %}
+                                <p style="color: red; font-weight: 700;">{{ error }}</p>
+                                {% endfor %}
+                            </p>
+                            {% endfor %}
+                            <input type="hidden" name="next" value={{next}}>
+                            <button type="submit" class="btn btn-dark">Sign up</button>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script text="javascript">
+    setTimeout(fade_out, 1000);
+    function fade_out() {
+        $(".alert").fadeOut().empty();
+    }
+</script>

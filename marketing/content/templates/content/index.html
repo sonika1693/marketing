@@ -1,0 +1,42 @@
+{% extends 'content/basic.html'%}
+{% load guest_user %}
+{% block title %}Home{% endblock %}
+{% block head %}
+<style>
+  .locked{pointer-events: none; opacity: 0.6;}
+  .card-text{height:100px; overflow: hidden;}
+</style>
+{% endblock %}
+  {% block body %}
+    <div class="container">
+      <div class="row">
+          {% for package in all_packages %}
+          <div class="col-sm-3 mb-3">  
+          {% if package.is_locked == True %}
+          <div class="card locked" style="width: 16rem;">
+          {% else %}
+          <div class="card" style="width: 16rem;">
+          {% endif %}
+                  {% if package.media_type == 'image' %}
+                  <img src="{{package.image_url}}" class="card-img-top" alt="No Image" height="150px">
+                  {% endif %}
+                  {% if package.media_type == 'video' %}
+                  <video width="320" height="240" controls>
+                      <source src="{{package.video_url}}" type="video/mp4">
+                  </video>
+                  {% endif %}
+                  <div class="card-body">
+                  <h5 class="card-title">{{package.title}}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">{{package.category.name}}</h6>
+                  <p class="card-text">{{package.description}}</p>
+                  <p class="card-btn"><a href="/content/details/{{package.id}}" class="card-link btn btn-dark">View Details</a></p>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+    </div>
+  {% endblock %}
+  
+
+

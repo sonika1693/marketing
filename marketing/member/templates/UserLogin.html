@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/basic/css/bootstrap.min.css">
+    <script src="/static/basic/js/jquery.min.js"></script>
+    <script src="/static/basic/js/bootstrap.min.js"></script>
+    <script src="/static/basic/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            /* background-color: rgb(215, 182, 247); */
+            /* background-color: #FFA500; */
+            height: 100vh;
+            background-image: url("/static/images/banner1.jpg");
+        }
+        h3 {
+            text-shadow: 2px 2px 2px rgb(175, 250, 239);
+        }
+        .col-md-6{
+            border: 2px solid #000; 
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #ffffff;
+        }
+        /* .header{
+            background-image: url("/static/images/banner1.jpg");
+            height:150px;
+        } */
+    </style>
+</head>
+{% if messages %}
+{% for message in messages %}
+{% if message.tags == 'success' %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+<strong>{{ message.tags }}!</strong> {{ message }}.
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% else %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+<strong>{{ message.tags }}!</strong> {{ message }}.
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+<body>
+    <div id="login">
+        <div class="container-fluid header">
+            <h3 class="text-center text-black pt-5">BODHI AI MARKETING</h3>
+        </div>
+        
+        <div class="container" style="margin-top:40px;">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form action="{% url 'member:UserLogin' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="exampleInputusername" class="form-label">Username</label>
+                            <input type="text" class="form-control" name="UserName" id="username" required aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="Password" id="password" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <div style="float:left;">
+                                <input type="checkbox" name="remember_me" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                            </div>
+                            <div style="float:right;">
+                                <a href="/signup" style="color: black;">Register Here</a>
+                            </div>
+                        </div>
+                        <button type="submit" name="button" class="btn btn-dark">Login</button>
+                        <a href="/guest_user" class="btn btn-dark">Login as Guest</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script text="javascript">
+    setTimeout(fade_out, 1000);
+    function fade_out() {
+        $(".alert").fadeOut().empty();
+    }
+</script>

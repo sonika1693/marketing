@@ -1,0 +1,9 @@
+.venv
+/venv
+.vscode
+/vscode
+marketing/content/migrations
+marketing/content/__pycache__
+marketing/member/migrations
+marketing/member/__pycache__
+marketing/db.sqlite3
