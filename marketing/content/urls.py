@@ -9,10 +9,10 @@ urlpatterns = [
     path('details/<int:content_id>',views.Details,name='Details'),
     path('add_comments/',views.AddComents,name='AddComents'),
     path('add_likes/',views.AddLikes,name='AddLikes'),
-
-    path('services/',views.Services,name='Services'),
-    path('about/',views.About,name='About'),
-    path('shop/',views.Shop,name='Shop'),
-    path('contact/',views.Contact,name='Contact'),
-    path('testing/',views.Testing,name='Testing'),
+    path('add_cart/<int:content_id>',views.add_cart, name='AddCart'),
+    path('delete_cart_item/',views.delete_cart_item, name='delete_cart_item'),
+    path('cart/', views.view_cart, name='ViewCart'),
+    path('checkout/', views.checkout, name='checkout'),
+    path('payment/', views.payment, name='payment'),
+    path('success/', views.success, name='success'),
 ]

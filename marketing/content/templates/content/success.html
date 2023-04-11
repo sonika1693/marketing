@@ -1,0 +1,141 @@
+{% extends 'content/basic.html'%}
+{% block title %}Success{% endblock %}
+{% block head %}
+<style>
+    .success_page {
+        text-align: center;
+        padding: 20px 0;
+    }
+    .success_page h1 {
+    color: #88B04B;
+    font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+    font-weight: 900;
+    font-size: 30px;
+    margin-bottom: 10px;
+    }
+    .success_page p {
+    color: #404F5E;
+    font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+    font-size:15px;
+    margin: 0;
+    }
+    .success_page i {
+      color: #9ABC66;
+      font-size: 50px;
+      line-height: 100px;
+      margin-left:-15px;
+    }
+    .success_page .card{
+      background: white;
+      padding: 20px;
+      border-radius: 4px;
+      box-shadow: 0 2px 3px #C8D0D8;
+      display: inline-block;
+      margin: 0 auto;
+    }
+    .invoice_page .card {
+        background: white;
+        padding: 20px;
+        border-radius: 4px;
+        box-shadow: 0 2px 3px #C8D0D8;
+    }
+    .success_page .checkmark_div{
+        border-radius:100px; 
+        height:100px; 
+        width:100px; 
+        background: #F8FAF5; 
+        margin:0 auto;
+    }
+    .invoice-title h2, .invoice-title h3 {
+    display: inline-block;
+}
+
+.table > tbody > tr > .no-line {
+    border-top: none;
+}
+
+.table > thead > tr > .no-line {
+    border-bottom: none;
+}
+
+.table > tbody > tr > .thick-line {
+    border-top: 2px solid;
+}
+.invoice_page{
+    margin-top:50px !important;
+}
+.invoice_page .personal_data p{margin: 0;}
+</style>
+{% endblock %}
+{% block body %}
+<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+<div class="container success_page">
+    <div class="row">
+        <div class="card">
+            <div class="checkmark_div">
+              <i class="checkmark">✓</i>
+            </div>
+            <h1>Payment Done Successfully!</h1> 
+            <p>We received your purchase request;<br/> we'll be in touch shortly!</p>
+        </div>
+    </div>
+</div>
+
+<div class="container invoice_page">
+    <div class="card">
+    <div class="row">
+    	<h3 style="text-align: center;">Invoice Order # {{order_number}}</h3>
+        <div class="col-md-12 mb-5 personal_data">
+            <strong>Order Details:</strong>
+            <p>Name: {{order.name}}</p>
+            <p>Email: {{order.email}}</p>
+            <p>Payment Method: {{payment.payment_method}}</p>
+            <p>Transaction ID: {{payment.txn_id}}</p>
+        </div>
+        <hr>
+    		
+    	<div class="col-md-12">
+    		<div class="panel panel-default">
+    			<div class="panel-heading">
+    				<h3 class="panel-title"><strong>Order Summary</strong></h3>
+    			</div>
+    			<div class="panel-body">
+    				<div class="table-responsive">
+    					<table class="table table-condensed">
+    						<thead>
+                                <tr>
+        							<td><strong>Item</strong></td>
+        							<td class="text-center"><strong>Price</strong></td>
+                                </tr>
+    						</thead>
+    						<tbody>
+                                {% for oc in ordered_content %}
+    							<tr>
+    								<td>{{oc.content.title}}</td>
+    								<td class="text-center">${{oc.content.price}}</td>
+    							</tr>
+                                {% endfor %}
+                                
+    							<tr>
+    								<td class="thick-line text-center"><strong>Subtotal</strong></td>
+    								<td class="thick-line text-right">${{total_price}}</td>
+    							</tr>
+    							<tr>
+    								<td class="no-line text-center"><strong>Tax</strong></td>
+    								<td class="no-line text-right">$15</td>
+    							</tr>
+    							<tr>
+    								<td class="no-line text-center"><strong>Total</strong></td>
+    								<td class="no-line text-right">${{total_price}}</td>
+    							</tr>
+    						</tbody>
+    					</table>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</div>
+</div>
+{% endblock %}
+

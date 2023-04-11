@@ -1,0 +1,96 @@
+{% extends 'content/basic.html'%}
+{% block title %}User Profile{% endblock %}
+{% block head %} 
+<style>
+  form input, form textarea {
+    background-color:gainsboro;
+    color: black;
+}
+</style>
+{% endblock %}
+{% block body %}
+  <div class="container">
+    <div class="main-body">
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                    <div class="mt-3">
+                      <h4>{{user.username}}</h4>
+                      <button class="btn btn-dark">Follow</button>
+                      <button class="btn btn-outline-dark">Message</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card mb-3">
+              <form action="/profile/" method="post">
+                {% csrf_token %}
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Full Name</h6></div>
+                    <div class="col-sm-9 text-secondary">
+                      <input name="name" type="text" value="{{user_details.name}}">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Email</h6></div>
+                    <div class="col-sm-9 text-secondary">
+                      <input name="email" type="email" value="{{user_details.email}}">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Phone</h6></div>
+                    <div class="col-sm-9 text-secondary">
+                      <input name="phone" type="text" value="{{user_details.phone}}">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">City</h6></div>
+                    <div class="col-sm-9 text-secondary">
+                      <input name="city" type="text" value="{{user_details.city}}">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">State</h6></div>
+                    <div class="col-sm-9 text-secondary">
+                      <input name="state" type="text" value="{{user_details.state}}">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Country</h6></div>
+                    <div class="col-sm-9 text-secondary">
+                      <input name="country" type="text" value="{{user_details.country}}">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Pincode</h6></div>
+                    <div class="col-sm-9 text-secondary">
+                      <input name="pincode" type="text" value="{{user_details.pincode}}">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <button class="btn btn-dark" type="submit">Edit Profile</button>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+{% endblock %}

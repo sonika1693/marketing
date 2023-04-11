@@ -1,0 +1,135 @@
+{% extends 'content/basic.html'%}
+{% block title %}Payments{% endblock %}
+{% block body %}
+<script src="https://www.paypal.com/sdk/js?client-id=AbN0v03AMflirg5W6swMC9eksECcW70fjXnlkgU1HQioQlq45DKDsuHd-t4srCXWgO5c6OX0Fr3Z2sHa&currency=USD"></script>
+<div class="container">
+    <h3 class="text-center mb-5">Review Your Order and make Payment</h3>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5>Basic Details:</h5>
+                    <p class="card-text mb-0"><b>Name:</b> {{order.name}}</p>
+                    <p class="card-text mb-0"><b>Email:</b> {{order.email}}</p>
+                    <p class="card-text mb-0"><b>Phone:</b> {{order.phone}}</p>
+                    <hr>
+                    <h5>Payment Method:</h5>
+                    <p class="card-text">Paypal</p>
+                    <hr>
+                    <h5>Review Products:</h5>
+                    {% for cd in cart_data %}
+                    <p class="card-text">
+                        {{cd.content.title}} (<span> Price: $ {{cd.content.price}}</span>)
+                    </p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Total Price:</h5>
+                    <p class="card-text" id="total_price">$ {{total_price}}</p>
+                    <div id="paypal-button-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+// setup session cookie data. This is Django-related
+function getCookie(name) 
+    {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') 
+      {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) 
+        {
+          var cookie = jQuery.trim(cookies[i]);
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) 
+          {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+    function csrfSafeMethod(method) 
+    {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+      beforeSend: function (xhr, settings) 
+      {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) 
+        {
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+      }
+    });
+// end session cookie data setup. 
+
+    var total_price = '{{total_price}}';
+    var order_number = '{{order.order_number}}';
+    var payment_method = 'PayPal';
+    var url = '/content/payment/';
+    var success_url = '/content/success/';
+
+    paypal.Buttons({
+        style: {
+            color: 'blue',
+            shape: 'rect',
+            label: 'pay',
+            height: 40
+        },
+        // set up the transaction
+        createOrder:function(data,actions){
+            return actions.order.create({
+                purchase_units:[{
+                    amount:{
+                        value:total_price
+                    }
+                }]
+            });
+        },
+
+        // finalize the transaction
+        onApprove:function(data,actions)
+        {
+            return actions.order.capture().then(function(details)
+            {
+                console.log(details)
+                
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: {
+                        payment_method: payment_method,
+                        order_number : order_number,
+                        txn_id : details.id,
+                        status: details.status,
+                    },
+                    success: function (data) 
+                    {
+                        console.log("success");
+                        console.log(data);
+                        window.location.href = success_url + '?order_number='+data.order_number+'&txn_id='+data.txn_id;
+                    },
+
+                    error: function (data) 
+                    {
+                        alert("An error occured, Please try again later")
+                    }
+                });
+            });
+        }
+    }).render('#paypal-button-container');
+
+</script>        
+{% endblock%}

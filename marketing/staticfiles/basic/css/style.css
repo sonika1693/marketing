@@ -1,5 +1,7 @@
 /* my changes */
-body {background-color: #f6f6f6;font-family: serif;}
+body {
+  background-color: #f6f6f6;
+  font-family: "Times New Roman", Times, serif !important;}
 body .container{margin-top: 120px; margin-bottom: 10px;}
 .details_container{margin-top: 50px !important;}
 .bi{color:black;}
@@ -49,7 +51,11 @@ a.header_left_btn{
   padding: 4px;
   font-size: 14px;
 }
-.d-flex a.a2{margin-left: 8px;}
+.d-flex a.a2{margin-left: 8px; margin-right: 8px;}
+.cart_box .cart_btn{
+  border-radius: 4px;
+  padding: 4px;
+  font-size: 14px;}
 .mid_box .btn_box{margin-bottom: 30px !important;}
 .mid_box .btn_box .btn{margin-right: 10px !important;}
 

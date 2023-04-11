@@ -7,4 +7,5 @@ urlpatterns = [
     path('guest_user',views.GuestLogin,name='GuestLogin'),
     path('signup/',views.SignUp,name='SignUp'),
     path('logout',views.Userlogout,name='Userlogout'),
+    path('profile/',views.profile,name='profile'),
 ]

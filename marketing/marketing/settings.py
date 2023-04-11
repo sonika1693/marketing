@@ -27,8 +27,6 @@ SECRET_KEY = 'django-insecure-)4xm-3x+4pcog%uigu1ydg7&!tw_@k61svv93(mk93b#m&mg=a
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -76,6 +74,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'content.custom_context_processor.content_category',
+                'content.custom_context_processor.cart_count',
             ],
         },
     },
