@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("convert/", include("guest_user.urls")),
     path('', include(('member.urls', 'memeber'), namespace='member')),
+    path('management/', include(('management.urls', 'management'), namespace='management')),
     path('content/', include(('content.urls', 'content'), namespace='content')),
 ]+ static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)

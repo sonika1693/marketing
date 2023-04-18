@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'member',
     'content',
+    'management',
 ]
 
 AUTHENTICATION_BACKENDS = [

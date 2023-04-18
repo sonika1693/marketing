@@ -45,7 +45,7 @@
           {% if user|is_guest_user %}
           <a class="header_right_btn a1" href="#"><span><i class="bi-person"></i> {{user.username}}</span></a>
           {% else %}
-          <a class="header_right_btn a1" href="/profile"><span><i class="bi-person"></i> {{user.username}}</span></a>
+          <a class="header_right_btn a1" href="/management/profile"><span><i class="bi-person"></i> {{user.username}}</span></a>
           {% endif %}
           <a class="header_right_btn a2" href="/logout">Logout</a>
           <a class="header_right_btn a3" href="/content/cart" style="margin-left: 8px;"><i class="bi-cart"></i> (<span id="cart">{{cart_quantity}}</span>)</a>

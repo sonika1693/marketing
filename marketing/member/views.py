@@ -5,7 +5,6 @@ from rest_framework.authtoken.models import Token
 from django.views.decorators.csrf import csrf_exempt
 from guest_user.decorators import allow_guest_user
 from django.contrib.auth import get_user_model
-from .forms import SignUpForm, UserProfileForm
 from django.conf import settings
 from .models import *
 
@@ -78,32 +77,7 @@ def Userlogout(request):
     messages.success(request, 'Logged Out Successfully')
     return redirect('/')
 
-def profile(request):
-    user = request.user
-    if request.method == 'GET':
-        try:
-            user_details = UserProfile.objects.get(user = user)
-            context = {
-                'user_details':user_details,
-            }
-            return render(request,'profile.html',context)
-        except:
-            return render(request,'profile.html')
-    else:
-        form = UserProfileForm(request.POST)
-        if form.is_valid():
-            details = UserProfile()
-            details.user = user
-            details.name = form.cleaned_data['name']
-            details.email = form.cleaned_data['email']
-            details.phone = form.cleaned_data['phone']
-            details.city = form.cleaned_data['city']
-            details.state = form.cleaned_data['state']
-            details.country = form.cleaned_data['country']
-            details.pincode = form.cleaned_data['pincode']
-            details.save()
-            messages.success(request, 'Profile Updated Successfully')
-            return render(request,'profile.html')
+
 
 
 # def register(request):
